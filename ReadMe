@@ -1,0 +1,7 @@
+this is a solution to exercise where the objective is to find the number of servers for a random list of website
+
+In order to run:
+python serversolution.py "yourrandomfile"
+
+Output:
+Plot is displayed as well as saved in the same directory with name serverplot.png

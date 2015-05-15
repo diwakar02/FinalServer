@@ -1,0 +1,21 @@
+Instructions
+============
+
+* You must post your solution to github within 3 hours of receiving this email.
+* If you have any uncertainties about the instructions you may improvise, provided that you explain the issues within a README file.
+
+* Use the requests and progressbar Python libraries
+* Write a script that retrieves <n> number of random websites. <n> is the only command-line argument to the script.
+* Choose random sites from the random_sites.txt file.
+* Because this may take some time, display a progress bar that shows percentage complete and estimated time remaining, while fetching the sites.
+* From each website, determine which kind of server was used (i.e. Apache, Microsoft, nginx, etc.)
+* Print out the server names and their number of occurrences.
+* Neatness counts. Be Pythonic.
+
+Extra Credit
+============
+
+* Use matplotlib and numpy to create a bar chart that shows server types (y axis) and the number of occurrences (x-axis).
+* See servers.png as an example output chart.
+
+
