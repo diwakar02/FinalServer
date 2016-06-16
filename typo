@@ -1,0 +1,71 @@
+Enter file contents here
+
+
+
+from xml.etree import ElementTree as ET
+import pandas as pd
+
+
+
+
+mondial_DB = ET.parse( './data/mondial_database.xml' )
+#1. Listing coutries(10) with lowest IMR(Infant Mortality)
+mondial_dataFrame = pd.DataFrame(columns=['Nation','IMR'])
+for element in mondial_DB.iterfind('country'):
+    if element.find('infant_mortality'):
+        inner_dataFrame=pd.DataFrame([[element.find('name').text,element.find('infant_mortality').text]], columns=['Nation','IMR'])
+        mondial_dataFrame = mondial_dataFrame.append(inner_dataFrame)
+        
+mondial_dataFrame['IMR']=pd.to_numeric(mondial_dataFrame['IMR'],errors='coerce') #other error correction parameters can be used here
+mondial_dataFrame.sort_values(by='infant_mortality')[:10]
+
+
+#####2
+census_df = pd.DataFrame(columns=['City','Census'])
+for element in mondial_DB.iterfind('country'):
+    for subelement in element.getiterator('city'):
+        if subelement.find('population'):
+            inner_df=pd.DataFrame([[subelement.find('name').text,subelement.find('population').text]], columns=['City','Census'])
+            census_df = census_df.append(inner_df)
+
+census_df['census']=pd.to_numeric(census_df['census'],errors='coerce')
+census_df.sort_values(by='census',ascending=False)[:10]
+
+
+
+#4. name and country of a) longest river, b) largest lake, c) airport at highest elevation
+longest_river_country=None
+longest_river_name=None
+longest_river_length=None
+for node in document.iterfind('river'):
+    if node.find('length') is not None:
+        if longest_river_length < float(node.find('length').text):
+            longest_river_country=node.attrib['country']
+            longest_river_name=node.attrib['id']
+            longest_river_length=float(node.find('length').text)
+
+print 'The longest river is '+longest_river_name+' in '+longest_river_country+' and is '+str(longest_river_length)
+
+largest_lake_country=None
+largest_lake_name=None
+largest_lake_area=None
+for node in document.iterfind('lake'):
+    if node.find('area') is not None:
+        if largest_lake_area < float(node.find('area').text):
+            largest_lake_country=node.attrib['country']
+            largest_lake_name=node.attrib['id']
+            largest_lake_area=float(node.find('area').text)
+
+print 'The largest lake is '+largest_lake_name+' in '+largest_lake_country+' and is '+str(largest_lake_area)
+
+highest_airport_country=None
+highest_airport_name=None
+highest_airport_elevation=0
+for node in document.iterfind('airport'):
+    if node.find('elevation').text is not None:
+        if highest_airport_elevation < float(node.find('elevation').text):
+            highest_airport_country=node.attrib['country']
+            highest_airport_name=node.find('name').text
+            highest_airport_elevation=float(node.find('elevation').text)
+
+print 'The highest airport is '+highest_airport_name+' in '+highest_airport_country+' and is '+str(highest_airport_elevation)
